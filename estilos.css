@@ -15,6 +15,39 @@ h1{
     text-decoration: none;
 }
 
+h2{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+
+}
+
+p{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+#contacto{
+    text-align: center;
+}
+
+#cv{
+    text-align: center;
+}
+
+.contacto-enlaces {
+    display: inline-block; /* Para centrar el contenedor en línea */
+    text-align: left; /* Alineación de texto a la izquierda */
+  }
+
+
+.contacto-enlaces div {
+margin-bottom: 5px; /* Espacio entre los pares de enlaces */
+}
+.nonedecoration{
+    text-decoration: none !important;
+    color: inherit
+}
+
 .nav{
     font-family: 'Raleway', sans-serif;
     color: white;
@@ -33,6 +66,7 @@ h1{
 .nav-link{
     color: #000;
     text-decoration: none !important;
+    transition: background-color 0.3s ease;
 }
 
 .nav-link:hover {
@@ -54,3 +88,19 @@ h1{
     max-height: 100%;
   }
   
+  .boton-descarga {
+    display: inline-block;
+    padding: 7px 20px;
+    background-color: #ff1100;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    transition: background-color 0.4s ease;
+  }
+  
+  .boton-descarga:hover {
+    background-color: #8b0000;
+
+  }
