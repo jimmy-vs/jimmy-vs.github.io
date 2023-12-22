@@ -100,7 +100,10 @@ margin-bottom: 5px; /* Espacio entre los pares de enlaces */
     transition: background-color 0.4s ease;
   }
   
+  
   .boton-descarga:hover {
     background-color: #8b0000;
 
   }
+
+  /* a */
