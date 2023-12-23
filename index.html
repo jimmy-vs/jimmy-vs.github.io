@@ -1,140 +1,58 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="estilos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="text-center mt-5 display-5">Jimmy Valdés - Analista Programador</h1>
-      <ul class="nav nav-pills justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#sobremi"> <i class="bi bi-info-circle"> </i>Sobre mí</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#portafolio"> <i class="bi bi-pc-display-horizontal"> </i>Portafolio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contacto"> <i class="bi bi-person-lines-fill"> </i>Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#cv"> <i class="bi bi-journal-text"></i> </i>Curriculum</a>
-        </li>
-      </ul>
-      <br>
-      
-      <div class="cuerpo">
-        <img src="img\programador.jpg" alt="">
-      </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JV - Informático</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="estilos.css" rel="stylesheet">
 
-      <div class="row">
-        <div class="col-12">
-          <section id="sobremi">
-      
-            <h2 class="text center mt-5 display-7">Sobre mí</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit non fugit odit dolorum fugiat quibusdam veniam
-              excepturi dolorem, id, adipisci vero consequuntur iusto quisquam sapiente eum totam officia a neque.
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque excepturi amet blanditiis vitae ea facere
-              numquam. Beatae blanditiis mollitia totam tempora dolorum! Deleniti dolore aperiam autem, qui nemo neque velit.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aspernatur alias nulla beatae! Dolor esse nihil
-              enim doloremque! Modi inventore earum odit dolor necessitatibus nihil delectus nostrum maxime consequuntur
-              veniam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt expedita ut excepturi. Nobis similique
-              repellendus excepturi expedita optio delectus ducimus molestiae at accusamus ea? Repellat delectus dolores iste
-              ipsum tempore.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, similique! Iure sapiente, voluptatem nulla
-              doloremque aut possimus eaque quisquam excepturi cum animi enim sunt voluptas atque quod corporis! Saepe, minus!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, enim eveniet nobis blanditiis quod
-              illum explicabo, iure dolor eos laboriosam obcaecati dignissimos. Ab quam quo nesciunt ratione, dolorem beatae
-              quas!
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, veritatis repellat illum nesciunt sequi
-              quos nulla praesentium dolorum quae odit quidem delectus mollitia beatae eius eaque at odio? Mollitia, quia.
-            </p>
-          </section>
-      
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+  <!-- SECCCION INICIO -->
+  <section id="inicio">
+    <div class="contenido">
+      <header>
+        <div class="contenido-header">
+          <h1>/JV/</h1>
+          <nav id="nav" class="">
+            <ul id="links">
+              <li><a href="#inicio" class="seleccionado">INICIO</a></li>
+              <li><a href="#sobremi">SOBRE MÍ</a></li>
+              <li><a href="#proyectos">PROYECTOS</a></li>
+              <li><a href="#tecnologias">TECNOLOGÍAS</a></li>
+              <li><a href="#contacto">CONTACTO</a></li>
+
+            </ul>
+          </nav>
+
+          <!-- ICONOS DEL MENÚ RESPONSIVO -->
+          <div id="icono-nav">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+
+          <!-- ICONOS REDES SOCIALES -->
+          <div class="redes">
+            <a href="https://www.linkedin.com/in/jimmy-valdés/" target="_blank"><i
+                class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:jimmyvaldes.0812@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://github.com/jimmy-vs" target="_blank"><i class="fa-brands fa-github"></i></a>
+          </div>
         </div>
+      </header>
+      <div class="presentacion">
+        <p class="bienvenida">Bienvenidos</p>
+        <h2>Soy <span>Jimmy Valdés</span>, Informático/Analista Programador</h2>
+        <p class="descripcion">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio at hic dolore recusandae
+          officia</p>
+        <a href="#proyectos">Ir a Proyectos</a>
       </div>
-
-      <div class="row">
-        <div class="col-12">
-          <section id="portafolio">
-      
-            <h2 class="text center mt-5 display-7">Mis proyectos</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit non fugit odit dolorum fugiat quibusdam veniam
-              excepturi dolorem, id, adipisci vero consequuntur iusto quisquam sapiente eum totam officia a neque.
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque excepturi amet blanditiis vitae ea facere
-              numquam. Beatae blanditiis mollitia totam tempora dolorum! Deleniti dolore aperiam autem, qui nemo neque velit.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aspernatur alias nulla beatae! Dolor esse nihil
-              enim doloremque! Modi inventore earum odit dolor necessitatibus nihil delectus nostrum maxime consequuntur
-              veniam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt expedita ut excepturi. Nobis similique
-              repellendus excepturi expedita optio delectus ducimus molestiae at accusamus ea? Repellat delectus dolores iste
-              ipsum tempore.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, similique! Iure sapiente, voluptatem nulla
-              doloremque aut possimus eaque quisquam excepturi cum animi enim sunt voluptas atque quod corporis! Saepe, minus!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, enim eveniet nobis blanditiis quod
-              illum explicabo, iure dolor eos laboriosam obcaecati dignissimos. Ab quam quo nesciunt ratione, dolorem beatae
-              quas!
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, veritatis repellat illum nesciunt sequi
-              quos nulla praesentium dolorum quae odit quidem delectus mollitia beatae eius eaque at odio? Mollitia, quia.
-            </p>
-          </section>
-      
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <section id="contacto">
-            <h2 class="text center mt-5 display-7">Contacto</h2>
-            <p>Para contactarme, puedes escribirme por cualquiera de los siguientes medios: </p>
-            <div class="contacto-enlaces">
-              <div>
-                <i class="bi bi-envelope-at-fill"></i>
-                <a class="text-center display-7 nonedecoration" href="mailto:jimmyvaldes.0812@gmail.com" target="_blank">jimmyvaldes.0812@gmail.com</a>
-              </div>
-              <div>
-                <i class="bi bi-linkedin"></i>
-                <a class="text-center display-7 nonedecoration" href="https://www.linkedin.com/in/jimmy-valdés/" target="_blank">https://www.linkedin.com/in/jimmy-valdés/</a>
-              </div>
-            </div>
-          </section>
-          
-          
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <section id="cv">
-            <h2 class="text center mt-5 display-7">Curriculum</h2>
-            <a class="boton-descarga" href="cv\CV Jimmy Valdés.pdf" download="CV Jimmy Valdes">Descargar PDF</a> <br>
-
-                
-          </section>
-          
-          
-        </div>
-      </div>
-
-      <footer>
-        <p></p>
-      </footer>
-
-
-
-
     </div>
-    
+  </section>
+</body>
 
-    
-      
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
 </html>
