@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>JV - Informático</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/programador.jpg">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="estilos.css" rel="stylesheet">
 
@@ -51,6 +53,129 @@
           officia</p>
         <a href="#proyectos">Ir a Proyectos</a>
       </div>
+    </div>
+  </section>
+
+  <!-- SECCCION SOBRE MÍ -->
+  <section id="sobremi">
+    <div class="contenedor-foto">
+      <img src="img/silueta.jpg" alt="">
+    </div>
+    <div class="sobremi">
+      <p class="titulo-seccion">Sobre mí</p>
+      <h2>Hola, soy <span>Jimmy Valdés</span></h2>
+      <h3>Informático/Analista Programador</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium laborum nostrum error iusto aut deserunt,
+        aspernatur repellendus velit quaerat nemo reiciendis tempora similique dicta! Tempore nostrum ullam consectetur
+        reiciendis nam!</p>
+        <a href="cv\CV Jimmy Valdés.pdf" download="CV Jimmy Valdes">Descargar CV</a> <br>
+
+    </div>
+  </section>
+
+  <!-- SECCCION PROYECTOS -->
+  <section id="proyectos">
+    <h3 class="titulo-seccion">PROYECTOS REALIZADOS</h3>
+    <div class="fila">
+      <div class="proyecto">
+        <span class="icono"><i class="fa-solid fa-shop"></i></span>
+        <h4>Software de bodega para una fundación</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In saepe ex dolores doloribus aperiam sapiente laboriosam
+          nisi adipisci soluta voluptas. Incidunt ducimus minus rem recusandae temporibus alias vel, assumenda nihil.</p>
+      </div>
+      <div class="proyecto">
+        <span class="icono"><i class="fa-solid fa-hospital"></i></span>
+        <h4>Software para un centro médico</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In saepe ex dolores doloribus aperiam sapiente laboriosam
+          nisi adipisci soluta voluptas. Incidunt ducimus minus rem recusandae temporibus alias vel, assumenda nihil.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCION TECNOLOGIAS -->
+  <div class="contenedor-skills" id="tecnologias">
+    <h3>TECNOLOGÍAS</h3>
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>HTML & CSS</p>
+        <span class="porcentaje">75%</span>
+      </div>
+      <div class="barra">
+        <div id="html" class="barra-progreso1"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>Python</p>
+        <span class="porcentaje">70%</span>
+      </div>
+      <div class="barra">
+        <div id="py" class="barra-progreso2"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>Django</p>
+        <span class="porcentaje">60%</span>
+      </div>
+      <div class="barra">
+        <div id="dj" class="barra-progreso3"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>MySQL</p>
+        <span class="porcentaje">70%</span>
+      </div>
+      <div class="barra">
+        <div id="bd" class="barra-progreso4"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>JavaScript</p>
+        <span class="porcentaje">50%</span>
+      </div>
+      <div class="barra">
+        <div id="js" class="barra-progreso5"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="info">
+        <p><span class="lista"></span>MongoDB</p>
+        <span class="porcentaje">60%</span>
+      </div>
+      <div class="barra">
+        <div id="mdb" class="barra-progreso6"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SECCION CONTACTO -->
+  <section id="contacto">
+    <h3 class="titulo-seccion">¡Contactame!</h3>
+    <div class="contenedor-form">
+      <form action="">
+        <div class="fila mitad">
+          <input type="text" placeholder="Nombre" class="input-mitad">
+          <input type="text" placeholder="Dirección de email" class="input-mitad">
+
+        </div>
+        <div class="fila">
+          <input type="text" placeholder="Tema..." class="input-full">
+
+        </div>
+        <div class="fila">
+          <textarea name="" id="" cols="30" rows="10" placeholder="Tu mensaje..." class="input-full"></textarea>
+        
+        </div>
+        <input type="submit" value="Enviar Mensaje" class="btn-enviar">
+      </form>
     </div>
   </section>
 </body>
