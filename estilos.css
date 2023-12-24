@@ -1,6 +1,7 @@
 /* fuente que se utilizará */
 
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Lobster&family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Lobster&family=Raleway:ital,wght@0,500;1,600;1,700&display=swap');
 
 * {
   margin: 0;
@@ -42,6 +43,8 @@ html {
   text-align: center;
   color: #10c3ff;
   text-shadow: black 2px 2px 2px;
+  font-family: 'Jost', sans-serif;
+
 
 }
 
