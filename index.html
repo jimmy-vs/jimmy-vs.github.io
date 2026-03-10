@@ -1,183 +1,926 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JV - Informático</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="img/programador.jpg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jimmy Valdés | Ingeniero en Informática</title>
+  <meta name="description" content="Portfolio personal de Jimmy Valdés, Ingeniero en Informática. Proyectos, experiencia y habilidades tecnológicas." />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="estilos.css" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:   { DEFAULT: '#6C63FF', light: '#8B85FF', dark: '#4B44CC' },
+            accent:    { DEFAULT: '#00D9C0', light: '#33E5D1' },
+            bg:        { DEFAULT: '#0D0D1A', card: '#13132B', border: '#1E1E3F' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          animation: {
+            'fade-up':    'fadeUp 0.7s ease forwards',
+            'fade-in':    'fadeIn 1s ease forwards',
+            'float':      'float 4s ease-in-out infinite',
+            'gradient':   'gradientShift 6s ease infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+            'spin-slow':  'spin 8s linear infinite',
+            'blink':      'blink 1s step-end infinite',
+          },
+          keyframes: {
+            fadeUp:        { '0%': { opacity: 0, transform: 'translateY(40px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            fadeIn:        { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+            float:         { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-18px)' } },
+            gradientShift: { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
+            blink:         { '0%,100%': { opacity: 1 }, '50%': { opacity: 0 } },
+          },
+        },
+      },
+    };
+  </script>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
 
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #0D0D1A; color: #E2E8F0; font-family: 'Inter', sans-serif; }
+
+    /* Scrollbar personalizado */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0D0D1A; }
+    ::-webkit-scrollbar-thumb { background: #6C63FF; border-radius: 4px; }
+
+    /* Gradiente animado del hero */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0D0D1A 0%, #13132B 30%, #1a0533 60%, #0D0D1A 100%);
+      background-size: 300% 300%;
+      animation: gradientShift 10s ease infinite;
+    }
+
+    /* Glow effects */
+    .glow-purple { box-shadow: 0 0 30px rgba(108,99,255,0.3), 0 0 60px rgba(108,99,255,0.1); }
+    .glow-teal   { box-shadow: 0 0 30px rgba(0,217,192,0.3), 0 0 60px rgba(0,217,192,0.1); }
+    .text-glow   { text-shadow: 0 0 20px rgba(108,99,255,0.6); }
+    .text-glow-teal { text-shadow: 0 0 20px rgba(0,217,192,0.5); }
+
+    /* Partículas canvas */
+    #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+    /* Navbar glass */
+    .glass {
+      background: rgba(13,13,26,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(108,99,255,0.15);
+    }
+
+    /* Cards */
+    .card {
+      background: #13132B;
+      border: 1px solid #1E1E3F;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(108,99,255,0.2);
+      border-color: rgba(108,99,255,0.5);
+    }
+
+    /* Skill bar */
+    .skill-bar-fill { transition: width 1.5s cubic-bezier(0.4,0,0.2,1); }
+
+    /* Timeline */
+    .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #6C63FF, #00D9C0); }
+    .timeline-dot  { width: 14px; height: 14px; border-radius: 50%; background: #6C63FF; border: 2px solid #00D9C0; flex-shrink: 0; margin-top: 6px; position: relative; z-index: 1; box-shadow: 0 0 10px rgba(108,99,255,0.6); }
+
+    /* Botón primario */
+    .btn-primary {
+      background: linear-gradient(135deg, #6C63FF, #00D9C0);
+      background-size: 200% 200%;
+      transition: background-position 0.4s ease, transform 0.2s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { background-position: right center; transform: scale(1.04); box-shadow: 0 0 25px rgba(108,99,255,0.5); }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Glitch text */
+    .glitch { position: relative; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    }
+    .glitch::before { color: #00D9C0; animation: glitch1 3s infinite; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+    .glitch::after  { color: #6C63FF; animation: glitch2 3s infinite; clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+    @keyframes glitch1 {
+      0%,90%,100% { transform: translate(0); } 91% { transform: translate(-3px, 1px); } 93% { transform: translate(2px,-1px); } 95% { transform: translate(-1px,2px); }
+    }
+    @keyframes glitch2 {
+      0%,90%,100% { transform: translate(0); } 91% { transform: translate(3px,-1px); } 93% { transform: translate(-2px,1px); } 95% { transform: translate(1px,-2px); }
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #6C63FF, #00D9C0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Project image overlay */
+    .project-overlay {
+      background: linear-gradient(to top, rgba(13,13,26,0.95) 0%, rgba(13,13,26,0.4) 60%, transparent 100%);
+    }
+
+    /* Active nav link */
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background: linear-gradient(90deg,#6C63FF,#00D9C0); transition: width 0.3s ease; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    /* Contact input */
+    .contact-input {
+      background: #13132B; border: 1px solid #1E1E3F; color: #E2E8F0;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-input:focus { border-color: #6C63FF; box-shadow: 0 0 0 3px rgba(108,99,255,0.2); outline: none; }
+
+    /* Tag */
+    .tag { background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.3); color: #8B85FF; font-size: 0.7rem; padding: 2px 10px; border-radius: 999px; }
+  </style>
 </head>
+<body class="overflow-x-hidden">
 
-<body>
-  <!-- SECCCION INICIO -->
-  <section id="inicio">
-    <div class="contenido">
-      <header>
-        <div class="contenido-header">
-          <h1>J V </h1>
-          <nav id="nav" class="">
-            <ul id="links">
-              <li><a href="#inicio" class="seleccionado"><i class="fa-solid fa-house"></i> INICIO</a></li>
-              <li><a href="#sobremi"><i class="fa-solid fa-circle-info"></i> SOBRE MÍ</a></li>
-              <li><a href="#proyectos"><i class="fa-solid fa-laptop"></i> PROYECTOS</a></li>
-              <li><a href="#tecnologias"><i class="fa-solid fa-screwdriver-wrench"></i> TECNOLOGÍAS</a></li>
-              <li><a href="#contacto"><i class="fa-solid fa-address-book"></i> CONTACTO</a></li>
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="font-mono text-xl font-bold gradient-text tracking-widest">&lt;JV /&gt;</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#sobre-mi" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Sobre mí</a>
+        <a href="#habilidades" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Habilidades</a>
+        <a href="#experiencia" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Experiencia</a>
+        <a href="#certificaciones" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Certificaciones</a>
+        <a href="#proyectos" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Proyectos</a>
+        <a href="#contacto" class="nav-link text-gray-300 hover:text-white text-sm font-medium transition-colors">Contacto</a>
+      </div>
+      <a href="#contacto" class="btn-primary text-white text-sm font-semibold px-5 py-2 rounded-full hidden md:block">Contáctame</a>
+      <!-- Mobile menu button -->
+      <button id="menu-btn" class="md:hidden text-gray-300 text-xl"><i class="fas fa-bars"></i></button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3">
+      <a href="#sobre-mi" class="text-gray-300 hover:text-white text-sm py-1">Sobre mí</a>
+      <a href="#habilidades" class="text-gray-300 hover:text-white text-sm py-1">Habilidades</a>
+      <a href="#experiencia" class="text-gray-300 hover:text-white text-sm py-1">Experiencia</a>
+      <a href="#certificaciones" class="text-gray-300 hover:text-white text-sm py-1">Certificaciones</a>
+      <a href="#proyectos" class="text-gray-300 hover:text-white text-sm py-1">Proyectos</a>
+      <a href="#contacto" class="text-gray-300 hover:text-white text-sm py-1">Contacto</a>
+    </div>
+  </nav>
 
-            </ul>
-          </nav>
+  <!-- ========== HERO ========== -->
+  <section id="hero" class="relative min-h-screen hero-gradient flex items-center justify-center overflow-hidden">
+    <canvas id="particles"></canvas>
 
-          <!-- ICONOS DEL MENÚ RESPONSIVO -->
-          <div id="icono-nav">
-            <i class="fa-solid fa-bars"></i>
+    <!-- Decorative orbs -->
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 rounded-full opacity-10 blur-3xl" style="background:radial-gradient(circle,#6C63FF,transparent);animation:float 6s ease-in-out infinite;"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl" style="background:radial-gradient(circle,#00D9C0,transparent);animation:float 8s ease-in-out infinite reverse;"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 opacity-0" id="hero-badge"
+           style="background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.3);">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse-slow"></span>
+        <span class="text-accent text-sm font-mono">Recién egresado · Buscando mi primera oportunidad</span>
+      </div>
+
+      <!-- Name / title -->
+      <h1 class="text-5xl md:text-7xl font-black mb-4 leading-tight opacity-0" id="hero-title">
+        <span class="glitch text-white" data-text="Jimmy Valdés">Jimmy Valdés</span>
+      </h1>
+      <div class="text-xl md:text-2xl font-light text-gray-400 mb-6 opacity-0" id="hero-subtitle">
+        <span class="text-accent font-mono">// </span>
+        <span id="typed-text"></span><span class="animate-blink text-primary font-bold">|</span>
+      </div>
+      <p class="text-gray-400 max-w-xl mx-auto mb-10 text-base leading-relaxed opacity-0" id="hero-desc">
+        Ingeniero en Informática especializado en transformar datos en decisiones estratégicas. Experiencia desarrollando soluciones robustas con Python & Django y creando tableros de alto impacto en Power BI. Enfocado en la eficiencia y la escalabilidad del software.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4 opacity-0" id="hero-btns">
+        <a href="#proyectos" class="btn-primary text-white font-bold px-8 py-3 rounded-full text-sm tracking-wide">
+          <i class="fas fa-rocket mr-2"></i>Ver Proyectos
+        </a>
+        <a href="cv/cv.pdf" target="_blank"
+           class="px-8 py-3 rounded-full text-sm font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 tracking-wide">
+          <i class="fas fa-download mr-2"></i>Descargar CV
+        </a>
+      </div>
+
+      <!-- Social icons -->
+      <div class="flex justify-center gap-5 mt-10 opacity-0" id="hero-social">
+        <a href="#" title="GitHub" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:glow-purple transition-all duration-300"
+           style="border:1px solid #1E1E3F; hover:border-color:#6C63FF;">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" title="LinkedIn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
+           style="border:1px solid #1E1E3F;">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:tu@email.com" title="Email" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
+           style="border:1px solid #1E1E3F;">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-xs animate-bounce">
+      <span>Scroll</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ========== SOBRE MÍ ========== -->
+  <section id="sobre-mi" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="reveal flex flex-col md:flex-row items-center gap-16">
+      <!-- Avatar -->
+      <div class="flex-shrink-0 relative">
+        <div class="w-56 h-56 rounded-2xl overflow-hidden glow-purple" style="border:2px solid rgba(108,99,255,0.4);">
+          <img src="img/programador.jpg" alt="Jimmy Valdés" class="w-full h-full object-cover" />
+        </div>
+        <!-- Floating badge -->
+        <div class="absolute -bottom-4 -right-4 px-3 py-2 rounded-xl text-xs font-bold text-white"
+             style="background:linear-gradient(135deg,#6C63FF,#00D9C0);">
+          <i class="fas fa-graduation-cap mr-1"></i> Recién Egresado
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="flex-1">
+        <p class="text-accent font-mono text-sm mb-2">// sobre mí</p>
+          <h2 class="text-4xl font-black text-white mb-5">Un poco sobre <span class="gradient-text">mí</span></h2>
+
+          <p class="text-gray-400 leading-relaxed mb-4">
+            Soy Jimmy Valdés, <span class="text-white font-semibold">Ingeniero en Informática</span> enfocado en crear soluciones tecnológicas que optimizan la <span class="text-white">gestión operativa</span> y la toma de decisiones.
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-4">
+            Durante mi práctica profesional, logré la <span class="text-white">digitalización y centralización de procesos</span> críticos mediante el desarrollo de un <span class="text-white">Sistema de Gestión de Documentos</span> integrado a bases de datos empresariales, asegurando la disponibilidad de la información en toda la red corporativa mediante un despliegue exitoso en <span class="text-white">Windows Server</span>.
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-6">
+            Además, aporté valor estratégico transformando datos complejos en <span class="text-white">insights accionables</span>, utilizando <span class="text-white font-bold">Power BI</span> y <span class="text-white font-bold">Python</span> para normalizar información y detectar anomalías. Mi enfoque combina la robustez del <span class="text-white">desarrollo backend</span> con la claridad del <span class="text-white">análisis de datos</span> para entregar resultados eficientes desde el primer día.
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-6">
+            Soy proactivo, me adapto rápido a nuevas tecnologías y disfruto resolviendo problemas complejos con soluciones simples y eficientes</span>. 
+          </p>
+        <!-- Info grid -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="card rounded-xl p-4">
+            <p class="text-gray-500 text-xs mb-1">Ubicación</p>
+            <p class="text-white font-semibold text-sm"><i class="fas fa-map-marker-alt text-accent mr-2"></i>Santiago, La Florida <!-- TODO --></p>
           </div>
-
-          <!-- ICONOS REDES SOCIALES -->
-          <div class="redes">
-            <a href="https://www.linkedin.com/in/jimmy-valdés/" target="_blank"><i
-                class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:jimmyvaldes.0812@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://github.com/jimmy-vs" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <div class="card rounded-xl p-4">
+            <p class="text-gray-500 text-xs mb-1">Especialidad</p>
+            <p class="text-white font-semibold text-sm"><i class="fas fa-laptop-code text-primary mr-2"></i>Ing. en Informática</p>
+          </div>
+          <div class="card rounded-xl p-4">
+            <p class="text-gray-500 text-xs mb-1">Email</p>
+            <p class="text-white font-semibold text-sm"><i class="fas fa-envelope text-accent mr-2"></i>jimmyvaldes.0812@gmail.com <!-- TODO --></p>
+          </div>
+          <div class="card rounded-xl p-4">
+            <p class="text-gray-500 text-xs mb-1">Estado</p>
+            <p class="text-white font-semibold text-sm"><i class="fas fa-search text-primary mr-2"></i>En búsqueda activa</p>
           </div>
         </div>
-      </header>
-      <div class="presentacion">
-        <p class="bienvenida">Bienvenidos a mi portafolio</p>
-        <h2>Soy <span>Jimmy Valdés</span> <br>Informático/Analista Programador</h2>
-        <p class="descripcion">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio at hic dolore recusandae
-          officia</p>
-        <a href="#proyectos">Ir a Proyectos</a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+      <div class="card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-black gradient-text mb-1" data-count="0" data-target="9">0+</div>
+        <p class="text-gray-400 text-sm">Tecnologías dominadas</p>
+      </div>
+      <div class="card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-black gradient-text mb-1" data-count="0" data-target="1">0</div>
+        <p class="text-gray-400 text-sm">Práctica profesional</p>
+      </div>
+      <div class="card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-black gradient-text mb-1" data-count="0" data-target="2">0+</div>
+        <p class="text-gray-400 text-sm">Proyectos destacados</p>
+      </div>
+      <div class="card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-black gradient-text mb-1" data-count="0" data-target="100">0%</div>
+        <p class="text-gray-400 text-sm">Ganas de aprender</p>
       </div>
     </div>
   </section>
 
-  <!-- SECCCION SOBRE MÍ -->
-  <section id="sobremi">
-    <div class="contenedor-foto">
-      <img src="img/silueta.jpg" alt="">
-    </div>
-    <div class="sobremi">
-      <p class="titulo-seccion">Sobre mí</p>
-      <h2>Hola, soy <span>Jimmy Valdés</span></h2>
-      <h3>Informático/Analista Programador</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium laborum nostrum error iusto aut deserunt,
-        aspernatur repellendus velit quaerat nemo reiciendis tempora similique dicta! Tempore nostrum ullam consectetur
-        reiciendis nam!</p>
-        <a href="cv\CV Jimmy Valdés.pdf" download="CV Jimmy Valdes">Descargar CV</a> <br>
+  <!-- ========== HABILIDADES ========== -->
+  <section id="habilidades" class="py-24" style="background:linear-gradient(180deg,transparent 0%,rgba(108,99,255,0.04) 50%,transparent 100%);">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center mb-16">
+        <p class="text-accent font-mono text-sm mb-2">// habilidades</p>
+        <h2 class="text-4xl font-black text-white">Mi <span class="gradient-text">Stack Tecnológico</span></h2>
+      </div>
+
+      <!-- Tech icons grid -->
+      <div class="reveal grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-16">
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fab fa-python text-3xl" style="color:#3776AB;"></i>
+          <span class="text-xs text-gray-400">Python</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <!-- Django: letra D estilizada -->
+          <span class="text-3xl font-black" style="color:#092E20;background:#44B78B;border-radius:6px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">Dj</span>
+          <span class="text-xs text-gray-400">Django</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fas fa-database text-3xl" style="color:#CC2927;"></i>
+          <span class="text-xs text-gray-400">SQL Server</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <!-- Power BI icon -->
+          <span class="text-3xl font-black" style="color:#F2C811;background:#1A1A2E;border-radius:6px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;">PBI</span>
+          <span class="text-xs text-gray-400">Power BI</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <!-- Excel icon -->
+          <span class="text-3xl font-black" style="color:#fff;background:#217346;border-radius:6px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;">XLS</span>
+          <span class="text-xs text-gray-400">Excel</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fab fa-html5 text-3xl" style="color:#E34F26;"></i>
+          <span class="text-xs text-gray-400">HTML5</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fab fa-css3-alt text-3xl" style="color:#1572B6;"></i>
+          <span class="text-xs text-gray-400">CSS3</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fab fa-git-alt text-3xl" style="color:#F05032;"></i>
+          <span class="text-xs text-gray-400">Git</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fab fa-github text-3xl text-gray-300"></i>
+          <span class="text-xs text-gray-400">GitHub</span>
+        </div>
+        <div class="skill-icon card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default">
+          <i class="fas fa-leaf text-3xl" style="color:#47A248;"></i>
+          <span class="text-xs text-gray-400">MongoDB</span>
+        </div>
+      </div>
+
+      <!-- Skill level cards -->
+      <div class="reveal grid md:grid-cols-3 gap-6 mt-2">
+
+        <!-- Grupo 1: Backend & Datos -->
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(108,99,255,0.15);">
+              <i class="fas fa-server text-sm" style="color:#8B85FF;"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm">Backend & Bases de Datos</h3>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fab fa-python text-xs" style="color:#3776AB;"></i> Python
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <span class="text-xs font-bold" style="color:#44B78B;">Dj</span> Django
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fas fa-database text-xs" style="color:#CC2927;"></i> SQL / SQL Server
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fas fa-leaf text-xs" style="color:#47A248;"></i> MongoDB
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(99,179,237,0.12);color:#7dd3fc;border:1px solid rgba(99,179,237,0.3);">Básico</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grupo 2: Datos & BI -->
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(0,217,192,0.15);">
+              <i class="fas fa-chart-bar text-sm" style="color:#00D9C0;"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm">Análisis de Datos & BI</h3>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <span class="text-xs font-bold" style="color:#F2C811;">PBI</span> Power BI
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <span class="text-xs font-bold" style="color:#217346;">XLS</span> Excel
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fab fa-python text-xs" style="color:#3776AB;"></i> Python (Pandas)
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grupo 3: Frontend & Herramientas -->
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(247,183,49,0.12);">
+              <i class="fas fa-code text-sm" style="color:#F7B731;"></i>
+            </div>
+            <h3 class="text-white font-bold text-sm">Frontend & Herramientas</h3>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fab fa-html5 text-xs" style="color:#E34F26;"></i> HTML5 / CSS3
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fab fa-git-alt text-xs" style="color:#F05032;"></i> Git / GitHub
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fas fa-sync-alt text-xs" style="color:#1E90FF;"></i> Scrum / Agile
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(108,99,255,0.15);color:#a78bfa;border:1px solid rgba(108,99,255,0.3);">Intermedio</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-300 text-sm flex items-center gap-2">
+                <i class="fas fa-bullseye text-xs" style="color:#6ECF3C;"></i> OKR / KPIs
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(99,179,237,0.12);color:#7dd3fc;border:1px solid rgba(99,179,237,0.3);">Básico</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Leyenda de niveles -->
+      <div class="reveal flex flex-wrap justify-center gap-4 mt-8">
+        <div class="flex items-center gap-2 text-xs text-gray-400">
+          <span class="w-3 h-3 rounded-full inline-block" style="background:#34d399;"></span>
+          Avanzado — uso profesional con experiencia práctica
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400">
+          <span class="w-3 h-3 rounded-full inline-block" style="background:#a78bfa;"></span>
+          Intermedio — manejo sólido en proyectos reales
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-400">
+          <span class="w-3 h-3 rounded-full inline-block" style="background:#7dd3fc;"></span>
+          Básico — conocimiento fundacional en desarrollo
+        </div>
+      </div>
 
     </div>
   </section>
 
-  <!-- SECCCION PROYECTOS -->
-  <section id="proyectos">
-    <h3 class="titulo-seccion">PROYECTOS REALIZADOS</h3>
-    <div class="fila">
-      <div class="proyecto">
-        <span class="icono"><i class="fa-solid fa-shop"></i></span>
-        <h4>Software de bodega para una fundación</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In saepe ex dolores doloribus aperiam sapiente laboriosam
-          nisi adipisci soluta voluptas. Incidunt ducimus minus rem recusandae temporibus alias vel, assumenda nihil.</p>
+  <!-- ========== EXPERIENCIA ========== -->
+  <section id="experiencia" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-16">
+      <p class="text-accent font-mono text-sm mb-2">// experiencia &amp; educación</p>
+      <h2 class="text-4xl font-black text-white">Mi <span class="gradient-text">Trayectoria</span></h2>
+      <p class="text-gray-400 mt-3 text-sm">Recién egresado, con práctica profesional y formación sólida.</p>
+    </div>
+
+    <div class="reveal relative pl-12" id="timeline">
+      <div class="timeline-line"></div>
+
+      <!-- Práctica Profesional -->
+      <div class="timeline-item mb-10">
+        <div class="flex items-start gap-4">
+          <div class="timeline-dot mt-1"></div>
+          <div class="card rounded-2xl p-6 flex-1">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+              <div>
+                <h3 class="text-white font-bold text-lg">Práctica Profesional</h3>
+                <p class="text-primary text-sm font-medium">Marley Coffee Chile <!-- TODO: nombre de la empresa --></p>
+              </div>
+              <span class="text-accent font-mono text-xs px-3 py-1 rounded-full self-start" style="background:rgba(0,217,192,0.1);border:1px solid rgba(0,217,192,0.3);">01/2026 - 03/2026 <!-- TODO: fechas --></span>
+            </div>
+            <!-- Logros con íconos -->
+            <ul class="space-y-3 mb-4">
+
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <i class="fas fa-folder-open text-primary mt-0.5 flex-shrink-0"></i>
+                <span>Desarrollo y despliegue de un Sistema de Gestión de Documentos utilizando Django. Diseñé una arquitectura híbrida que integra una base de datos local para la gestión del sistema con la sincronización de datos desde una base de datos empresarial. 
+                  El sistema fue implementado exitosamente en Windows Server bajo un entorno de red local, permitiendo el acceso simultáneo y seguro de los colaboradores de la compañía.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <i class="fas fa-chart-bar text-accent mt-0.5 flex-shrink-0"></i>
+                <span>Desarrollo de dashboards interactivos con Power BI, aplicando modelado de datos (modelo estrella), fórmulas DAX, y scripts de Python para la detección de anomalías en procesos financieros.</span>
+              </li>
+
+              
+
+              <li class="flex items-start gap-3 text-sm text-gray-400">
+                <i class="fas fa-file-excel text-green-400 mt-0.5 flex-shrink-0"></i>
+                <span>Desarrollo de scripts en Python (Pandas) para el pre-procesamiento y normalización de datasets complejos, transformando archivos Excel no estructurados en formatos optimizados y validados para su futura integración en SQL Server.</span>
+              </li> 
+              
+            </ul> 
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Python</span>
+              <span class="tag">Django</span>
+              <span class="tag">SQL Server</span>
+              <span class="tag">AJAX</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">Excel</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="proyecto">
-        <span class="icono"><i class="fa-solid fa-hospital"></i></span>
-        <h4>Software para un centro médico</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In saepe ex dolores doloribus aperiam sapiente laboriosam
-          nisi adipisci soluta voluptas. Incidunt ducimus minus rem recusandae temporibus alias vel, assumenda nihil.</p>
+
+      <!-- Educación -->
+      <div class="timeline-item">
+        <div class="flex items-start gap-4">
+          <div class="timeline-dot mt-1" style="background:#8B85FF;border-color:#00D9C0;"></div>
+          <div class="card rounded-2xl p-6 flex-1">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+              <div>
+                <h3 class="text-white font-bold text-lg">Ingeniería en Informática</h3>
+                <p class="text-primary text-sm font-medium">INACAP - Santiago Sur <!-- TODO: agrega el nombre --></p>
+              </div>
+              <span class="text-accent font-mono text-xs px-3 py-1 rounded-full self-start" style="background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.3);">03/2022 – 12/2025 <!-- TODO --></span>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Ingeniero en Informática con especial interés en arquitectura de software y ciencia de datos. Formación sólida en el ciclo de vida de desarrollo, gestión de bases de datos relacionales y optimización de procesos mediante soluciones tecnológicas.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="tag">Programación Full Stack</span>
+              <span class="tag">Bases de Datos SQL</span>
+              <span class="tag">Gestión de Proyectos</span>
+              <span class="tag">Ing. de Software</span>
+              <span class="tag">Business Inteligence</span>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECCION TECNOLOGIAS -->
-  <div class="contenedor-skills" id="tecnologias">
-    <h3>TECNOLOGÍAS</h3>
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>HTML & CSS</p>
-        <span class="porcentaje">75%</span>
+  <!-- ========== CERTIFICACIONES ========== -->
+  <section id="certificaciones" class="py-24" style="background:linear-gradient(180deg,transparent 0%,rgba(108,99,255,0.05) 50%,transparent 100%);">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center mb-16">
+        <p class="text-accent font-mono text-sm mb-2">// certificaciones</p>
+        <h2 class="text-4xl font-black text-white">Mis <span class="gradient-text">Certificaciones</span></h2>
+        <p class="text-gray-400 mt-3 text-sm">Formación continua y validación de conocimientos.</p>
       </div>
-      <div class="barra">
-        <div id="html" class="barra-progreso1"></div>
-      </div>
-    </div>
 
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>Python</p>
-        <span class="porcentaje">70%</span>
-      </div>
-      <div class="barra">
-        <div id="py" class="barra-progreso2"></div>
-      </div>
-    </div>
+      <div class="reveal grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
 
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>Django</p>
-        <span class="porcentaje">60%</span>
-      </div>
-      <div class="barra">
-        <div id="dj" class="barra-progreso3"></div>
-      </div>
-    </div>
+        <!-- Certificación 1: Scrum SFPC™ - CertiProf -->
+        <div class="cert-card card rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden"
+             style="border:1px solid rgba(30,144,255,0.35);">
+          <!-- Glow decorativo azul (colores CertiProf) -->
+          <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full opacity-15 blur-2xl"
+               style="background:#1E90FF;"></div>
+          <!-- Icono + emisor -->
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 relative"
+                 style="background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.35);">
+              <!-- Scrum / Agile icon -->
+              <i class="fas fa-award text-2xl" style="color:#1E90FF;"></i>
+            </div>
+            <div>
+              <p class="text-gray-500 text-xs mb-0.5">Emisor</p>
+              <div class="flex items-center gap-2">
+                <!-- CertiProf logo simulado con colores reales -->
+                <span class="text-xs font-black px-2 py-0.5 rounded"
+                      style="background:linear-gradient(90deg,#E65C00,#1E90FF);color:#fff;letter-spacing:0.5px;">Certi<span style="color:#fff;">Prof</span></span>
+              </div>
+            </div>
+          </div>
+          <!-- Título + descripción -->
+          <div>
+            <div class="flex items-center gap-2 mb-1 flex-wrap">
+              <h3 class="text-white font-bold text-base">Scrum Foundation Professional</h3>
+              <span class="text-xs font-mono px-2 py-0.5 rounded-full"
+                    style="background:rgba(30,144,255,0.15);color:#60a5fa;border:1px solid rgba(30,144,255,0.3);">SFPC™</span>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              Certificación de conocimientos fundamentales en Scrum, con dominio de los pilares empíricos
+              de transparencia, inspección y adaptación, así como los roles, eventos y artefactos del framework.
+            </p>
+          </div>
+          <!-- Skill tags -->
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">Agile</span>
+            <span class="tag">Scrum</span>
+            <span class="tag">Sprints</span>
+            <span class="tag">Scrum Roles</span>
+            <span class="tag">Scrum Events</span>
+            <span class="tag">Agile Teams</span>
+          </div>
+          <!-- Footer -->
+          <div class="flex items-center justify-between pt-2" style="border-top:1px solid #1E1E3F;">
+            
 
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>MySQL</p>
-        <span class="porcentaje">70%</span>
-      </div>
-      <div class="barra">
-        <div id="bd" class="barra-progreso4"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>JavaScript</p>
-        <span class="porcentaje">50%</span>
-      </div>
-      <div class="barra">
-        <div id="js" class="barra-progreso5"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="info">
-        <p><span class="lista"></span>MongoDB</p>
-        <span class="porcentaje">60%</span>
-      </div>
-      <div class="barra">
-        <div id="mdb" class="barra-progreso6"></div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- SECCION CONTACTO -->
-  <section id="contacto">
-    <h3 class="titulo-seccion">¡Contactame!</h3>
-    <div class="contenedor-form">
-      <form action="">
-        <div class="fila mitad">
-          <input type="text" placeholder="Nombre" class="input-mitad">
-          <input type="text" placeholder="Dirección de email" class="input-mitad">
-
+            <a href="https://www.credly.com/badges/8201997a-67c1-483c-bad3-77b99a94f753/linked_in_profile" target="_blank"
+               class="text-xs font-semibold px-3 py-1 rounded-full transition-all duration-300"
+               style="background:rgba(30,144,255,0.15);color:#60a5fa;border:1px solid rgba(30,144,255,0.3);"
+               onmouseover="this.style.background='rgba(30,144,255,0.35)';"
+               onmouseout="this.style.background='rgba(30,144,255,0.15)';">
+              <!-- TODO: reemplaza # con la URL de tu credencial CertiProf -->
+              <i class="fas fa-external-link-alt mr-1"></i>Ver credencial
+            </a>
+          </div>
         </div>
-        <div class="fila">
-          <input type="text" placeholder="Tema..." class="input-full">
 
+
+        <!-- Certificación 2: OKR Master - ITCERT -->
+        <div class="cert-card card rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden"
+             style="border:1px solid rgba(80,200,80,0.35);">
+          <!-- Glow decorativo verde (colores ITCERT) -->
+          <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full opacity-15 blur-2xl"
+               style="background:#50C832;"></div>
+          <!-- Icono + emisor -->
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(80,200,50,0.12);border:1px solid rgba(80,200,50,0.35);">
+              <i class="fas fa-award text-2xl" style="color:#6ECF3C;"></i>
+            </div>
+            <div>
+              <p class="text-gray-500 text-xs mb-0.5">Emisor</p>
+              <div class="flex items-center gap-2">
+                <!-- ITCERT logo simulado con colores reales -->
+                <span class="text-xs font-black px-2 py-0.5 rounded"
+                      style="background:linear-gradient(90deg,#3aaa1a,#8fcf20);color:#fff;letter-spacing:0.5px;">IT<span style="color:#ffe066;">CERT</span></span>
+                <span class="text-gray-400 text-xs">E.I.R.L.</span>
+              </div>
+            </div>
+          </div>
+          <!-- Título + descripción -->
+          <div>
+            <div class="flex items-center gap-2 mb-1 flex-wrap">
+              <h3 class="text-white font-bold text-base">OKR Master Synchronous Workshop</h3>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              Comprensión de la estrategia empresarial mediante OKRs: alineación organizacional, definición de
+              objetivos estratégicos y resultados clave medibles para impulsar el crecimiento del negocio.
+            </p>
+          </div>
+          <!-- Skill tags -->
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">OKR</span>
+            <span class="tag">Objetivos Estratégicos</span>
+            <span class="tag">KPIs</span>
+            <span class="tag">Gestión Ágil</span>
+          </div>
+          <!-- Footer -->
+          <div class="flex items-center justify-between pt-2" style="border-top:1px solid #1E1E3F;">
+            <a href="https://www.credly.com/badges/c67f8996-359b-4577-b6ef-047807b16cf7/linked_in_profile" target="_blank"
+               class="text-xs font-semibold px-3 py-1 rounded-full transition-all duration-300"
+               style="background:rgba(80,200,50,0.15);color:#86efac;border:1px solid rgba(80,200,50,0.3);"
+               onmouseover="this.style.background='rgba(80,200,50,0.35)';"
+               onmouseout="this.style.background='rgba(80,200,50,0.15)';">
+              <!-- TODO: pega aquí la URL de tu credencial ITCERT -->
+              <i class="fas fa-external-link-alt mr-1"></i>Ver credencial
+            </a>
+          </div>
         </div>
-        <div class="fila">
-          <textarea name="" id="" cols="30" rows="10" placeholder="Tu mensaje..." class="input-full"></textarea>
-        
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROYECTOS ========== -->
+  <section id="proyectos" class="py-24" style="background:linear-gradient(180deg,transparent 0%,rgba(0,217,192,0.03) 50%,transparent 100%);">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center mb-16">
+        <p class="text-accent font-mono text-sm mb-2">// proyectos</p>
+        <h2 class="text-4xl font-black text-white">Mis <span class="gradient-text">Proyectos</span></h2>
+        <p class="text-gray-400 mt-3 max-w-xl mx-auto text-sm">Proyectos desarrollados durante mi formación y práctica profesional.</p>
+      </div>
+
+      <!-- Filter buttons -->
+      <div class="reveal flex flex-wrap justify-center gap-3 mb-12" id="filter-btns">
+        <button class="filter-btn active px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300" data-filter="all">Todos</button>
+        <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300" data-filter="web">Web / Backend</button>
+        <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300" data-filter="data">Análisis de Datos</button>
+      </div>
+
+      <div class="reveal grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+
+        <!-- Proyecto 1: Sistema de Gestión de Documentos -->
+        <div class="project-card card rounded-2xl overflow-hidden" data-category="web">
+          <div class="relative h-48 overflow-hidden" style="background:linear-gradient(135deg,#13132B,#1a0533);">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-folder-open text-7xl" style="color:rgba(108,99,255,0.35);"></i>
+            </div>
+            <!-- Badge destacado -->
+            <div class="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-bold text-white" style="background:rgba(108,99,255,0.7);">
+              <i class="fas fa-star mr-1 text-yellow-300"></i>Práctica Profesional
+            </div>
+            <div class="absolute inset-0 project-overlay flex items-end p-4">
+              <div class="flex gap-2">
+                <a href="#" class="w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-primary transition-all text-xs" title="Demo"><i class="fas fa-external-link-alt"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-primary transition-all text-xs" title="Código"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-bold text-lg mb-2">Sistema de Gestión de Documentos</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">Aplicación web completa para la gestión y almacenamiento de documentos empresariales. Backend en Django, base de datos SQL Server, interfaz dinámica con AJAX y control de vencimiento de documentos.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Python</span><span class="tag">Django</span><span class="tag">SQL Server</span><span class="tag">AJAX</span>
+            </div>
+          </div>
         </div>
-        <input type="submit" value="Enviar Mensaje" class="btn-enviar">
+
+        <!-- Proyecto 2: Dashboard Power BI -->
+        <div class="project-card card rounded-2xl overflow-hidden" data-category="data">
+          <div class="relative h-48 overflow-hidden" style="background:linear-gradient(135deg,#1a1300,#261a00);">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-chart-pie text-7xl" style="color:rgba(242,200,17,0.35);"></i>
+            </div>
+            <div class="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-bold text-white" style="background:rgba(242,200,17,0.4);">
+              <i class="fas fa-star mr-1 text-yellow-300"></i>Práctica Profesional
+            </div>
+            <div class="absolute inset-0 project-overlay flex items-end p-4">
+              <div class="flex gap-2">
+                <a href="#" class="w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-yellow-500 transition-all text-xs"><i class="fas fa-external-link-alt"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-yellow-500 transition-all text-xs"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-bold text-lg mb-2">Dashboard de Análisis de Datos</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">Dashboards interactivos en Power BI para análisis de indicadores de gestión, con procesamiento y limpieza de datos en Excel. Permitió tomar decisiones basadas en datos en tiempo real.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proyecto 3: Placeholder personal -->
+        <div class="project-card card rounded-2xl overflow-hidden" data-category="web">
+          <div class="relative h-48 overflow-hidden" style="background:linear-gradient(135deg,#0d1f2b,#0a2a1a);">
+            <div class="absolute inset-0 flex items-center justify-center flex-col gap-3">
+              <i class="fas fa-plus-circle text-5xl" style="color:rgba(0,217,192,0.3);"></i>
+              <p class="text-gray-600 text-xs font-mono">próximamente...</p>
+            </div>
+            <div class="absolute inset-0 project-overlay flex items-end p-4">
+              <div class="flex gap-2">
+                <a href="#" class="w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-all text-xs"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-bold text-lg mb-2">Proyecto Personal <!-- TODO --></h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">Próximamente. Agrega aquí un proyecto personal: una app, un script de automatización, un análisis de datos propio, etc.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Python</span><span class="tag">HTML5</span><span class="tag">Git</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="https://github.com/jimmy-vs" target="_blank"
+           class="btn-primary inline-block text-white font-bold px-8 py-3 rounded-full text-sm">
+          <i class="fab fa-github mr-2"></i>Ver más en GitHub<!-- TODO: ajusta el link -->
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTO ========== -->
+  <section id="contacto" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-16">
+      <p class="text-accent font-mono text-sm mb-2">// contacto</p>
+      <h2 class="text-4xl font-black text-white">Hablemos <span class="gradient-text">Juntos</span></h2>
+      <p class="text-gray-400 mt-3 max-w-xl mx-auto text-sm">¿Tienes un proyecto en mente? ¡Me encantaría escucharte!</p>
+    </div>
+
+    <div class="reveal grid md:grid-cols-2 gap-12 items-start">
+      <!-- Info -->
+      <div class="space-y-6">
+        <div class="card rounded-2xl p-6 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(108,99,255,0.15);">
+            <i class="fas fa-envelope text-primary text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs mb-1">Email</p>
+            <a href="mailto:jimmyvaldes.0812@gmail.com" class="text-white font-semibold hover:text-primary transition-colors">jimmyvaldes.0812@gmail.com <!-- TODO --></a>
+          </div>
+        </div>
+        <div class="card rounded-2xl p-6 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(0,217,192,0.15);">
+            <i class="fab fa-linkedin text-accent text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs mb-1">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/jimmy-valdes" target="_blank" class="text-white font-semibold hover:text-accent transition-colors">linkedin.com/in/jimmy-valdés <!-- TODO --></a>
+          </div>
+        </div>
+        <div class="card rounded-2xl p-6 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(108,99,255,0.15);">
+            <i class="fab fa-github text-gray-300 text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs mb-1">GitHub</p>
+            <a href="https://github.com/jimmy-vs" target="_blank" class="text-white font-semibold hover:text-primary transition-colors">github.com/jimmy-vs <!-- TODO --></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="contact-form" class="card rounded-2xl p-8 space-y-5">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-400 text-xs mb-2">Nombre</label>
+            <input type="text" id="contact-name" placeholder="Tu nombre" class="contact-input w-full rounded-xl px-4 py-3 text-sm" required />
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs mb-2">Email</label>
+            <input type="email" id="contact-email" placeholder="tu@email.com" class="contact-input w-full rounded-xl px-4 py-3 text-sm" required />
+          </div>
+        </div>
+        <div>
+          <label class="block text-gray-400 text-xs mb-2">Asunto</label>
+          <input type="text" id="contact-subject" placeholder="¿Sobre qué quieres hablar?" class="contact-input w-full rounded-xl px-4 py-3 text-sm" />
+        </div>
+        <div>
+          <label class="block text-gray-400 text-xs mb-2">Mensaje</label>
+          <textarea id="contact-message" rows="5" placeholder="Cuéntame sobre tu proyecto..." class="contact-input w-full rounded-xl px-4 py-3 text-sm resize-none" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full text-white font-bold py-3 rounded-xl text-sm tracking-wide">
+          <i class="fas fa-paper-plane mr-2"></i>Enviar Mensaje
+        </button>
+        <p id="form-feedback" class="text-center text-sm hidden"></p>
       </form>
     </div>
   </section>
-</body>
 
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-8 text-center border-t" style="border-color:#1E1E3F;">
+    <p class="text-gray-500 text-sm font-mono">
+      Hecho con <span class="text-red-500">❤</span> por <span class="gradient-text font-bold">Jimmy Valdés</span> &mdash; &copy; <span id="year"></span>
+    </p>
+  </footer>
+
+  <!-- ========== CURSOR PERSONALIZADO ========== -->
+  <div id="cursor" class="fixed w-4 h-4 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+       style="background:#fff; transition: transform 0.1s; top:0; left:0;"></div>
+  <div id="cursor-ring" class="fixed w-8 h-8 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2"
+       style="border:1.5px solid rgba(108,99,255,0.6); top:0; left:0; transition: all 0.15s ease;"></div>
+
+  <!-- ========== SCROLL TO TOP ========== -->
+  <button id="scroll-top" class="fixed bottom-6 right-6 w-12 h-12 btn-primary rounded-full flex items-center justify-center text-white shadow-xl opacity-0 pointer-events-none transition-all duration-300 z-40">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script src="js/main.js"></script>
+</body>
 </html>
