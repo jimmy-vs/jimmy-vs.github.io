@@ -127,6 +127,11 @@
       animation: heroFadeUp 0.7s ease both;
     }
 
+    .name-glow {
+      color: #FFFFFF;
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.45), 0 0 25px rgba(0, 210, 255, 0.25);
+    }
+
     /* Glitch text */
     .glitch { position: relative; }
     .glitch::before, .glitch::after {
@@ -217,7 +222,7 @@
 
       <!-- Name / title -->
       <h1 class="text-5xl md:text-7xl font-black mb-4 leading-tight hero-anim" id="hero-title" style="animation-delay:0.35s;">
-        <span class="glitch text-white" data-text="Jimmy Valdés">Jimmy Valdés</span>
+        <span class="name-glow">Jimmy Valdés</span>
       </h1>
       <div class="text-xl md:text-2xl font-light text-gray-400 mb-6 hero-anim" id="hero-subtitle" style="animation-delay:0.5s;">
         <span class="text-accent font-mono">// </span>
