@@ -21,40 +21,6 @@ mobileMenu.querySelectorAll('a').forEach(a => {
   });
 });
 
-// ─── Custom cursor ──────────────────────────────
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursor-ring');
-let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.left = mouseX + 'px';
-  cursor.style.top = mouseY + 'px';
-});
-
-document.querySelectorAll('a, button, .card, .skill-icon, .cert-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'translate(-50%,-50%) scale(2)';
-    cursorRing.style.transform = 'translate(-50%,-50%) scale(1.5)';
-    cursorRing.style.borderColor = '#6C63FF';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-    cursorRing.style.transform = 'translate(-50%,-50%) scale(1)';
-    cursorRing.style.borderColor = 'rgba(108,99,255,0.6)';
-  });
-});
-
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  cursorRing.style.left = ringX + 'px';
-  cursorRing.style.top = ringY + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
 // ─── Particles canvas ───────────────────────────
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
@@ -121,27 +87,13 @@ function animateParticles() {
 }
 animateParticles();
 
-// ─── Hero entrance animations ────────────────────
-function heroEntrance() {
-  const order = ['hero-badge', 'hero-title', 'hero-subtitle', 'hero-desc', 'hero-btns', 'hero-social'];
-  order.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    setTimeout(() => {
-      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-      el.style.transform = 'translateY(0)';
-      el.style.opacity = '1';
-    }, 200 + i * 150);
-  });
-}
-window.addEventListener('load', heroEntrance);
 
 // ─── Typed text effect ───────────────────────────
 const phrases = [
   'Ingeniero en Informática',
   'Desarrollador Full Stack',
   'Analista de Datos con Power BI',
-  'Recién egresado y listo para crecer',
+  'Recién titulado y listo para crecer',
 ];
 let phraseIdx = 0, charIdx = 0, isDeleting = false;
 const typedEl = document.getElementById('typed-text');
@@ -172,14 +124,7 @@ const navLinks = document.querySelectorAll('.nav-link');
 const navbar = document.getElementById('navbar');
 
 window.addEventListener('scroll', () => {
-  // Shrink navbar
-  if (window.scrollY > 50) {
-    navbar.classList.add('py-2');
-    navbar.classList.remove('py-4');
-  } else {
-    navbar.classList.remove('py-2');
-    navbar.classList.add('py-4');
-  }
+  // El tamaño de la navbar ahora es fijo, sin lógica de shrink
 
   // Active link
   let current = '';
@@ -241,13 +186,14 @@ document.querySelectorAll('.card').forEach(c => {
 // ─── Counter animation ───────────────────────────
 function animateCounter(el) {
   const target = parseInt(el.dataset.target) || 0;
+  const suffix = el.dataset.suffix || '+';
   const duration = 1800;
   const step = target / (duration / 16);
   let current = 0;
   const timer = setInterval(() => {
     current += step;
     if (current >= target) { current = target; clearInterval(timer); }
-    el.textContent = Math.floor(current) + '+';
+    el.textContent = Math.floor(current) + suffix;
   }, 16);
 }
 
@@ -268,7 +214,6 @@ document.querySelectorAll('.grid').forEach(g => {
 const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 
-// Style filter buttons
 function updateFilterStyles() {
   filterBtns.forEach(btn => {
     if (btn.classList.contains('active')) {
@@ -373,6 +318,99 @@ document.addEventListener('mousemove', e => {
   document.querySelectorAll('#hero > div:not(#particles):not(.z-10)').forEach(orb => {
     orb.style.transform = `translate(${x}px, ${y}px)`;
   });
+});
+
+// ─── Lightbox / Image Carousel ───────────────────
+const lightbox        = document.getElementById('lightbox');
+const lightboxImg     = document.getElementById('lightbox-img');
+const lightboxTitle   = document.getElementById('lightbox-title');
+const lightboxCounter = document.getElementById('lightbox-counter');
+const lightboxClose   = document.getElementById('lightbox-close');
+const lightboxPrev    = document.getElementById('lightbox-prev');
+const lightboxNext    = document.getElementById('lightbox-next');
+
+let lbImages = [];
+let lbIndex  = 0;
+
+function openLightbox(images, title, startIndex = 0) {
+  lbImages = images;
+  lbIndex  = startIndex;
+  lightboxTitle.textContent = title;
+  updateLightboxImage();
+  lightbox.classList.remove('lb-hidden');
+  lightbox.classList.add('lb-visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('lb-visible');
+  lightbox.classList.add('lb-hidden');
+  document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+  lightboxImg.style.opacity = '0';
+  lightboxImg.style.transform = 'scale(0.97)';
+  setTimeout(() => {
+    lightboxImg.src = lbImages[lbIndex];
+    lightboxImg.style.opacity = '1';
+    lightboxImg.style.transform = 'scale(1)';
+    lightboxCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
+  }, 150);
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+lightboxPrev.addEventListener('click', () => {
+  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+  updateLightboxImage();
+});
+lightboxNext.addEventListener('click', () => {
+  lbIndex = (lbIndex + 1) % lbImages.length;
+  updateLightboxImage();
+});
+
+document.addEventListener('keydown', e => {
+  if (lightbox.classList.contains('lb-hidden')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; updateLightboxImage(); }
+  if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbImages.length; updateLightboxImage(); }
+});
+
+// Wire up project card gallery triggers
+document.querySelectorAll('[data-gallery]').forEach(trigger => {
+  trigger.addEventListener('click', e => {
+    e.preventDefault();
+    const galleryId = trigger.dataset.gallery;
+    const title     = trigger.dataset.title || '';
+    const start     = parseInt(trigger.dataset.start || '0');
+    const el        = document.getElementById(galleryId);
+    if (!el) return;
+    const images = JSON.parse(el.textContent.trim());
+    openLightbox(images, title, start);
+  });
+});
+
+// ─── Project card stagger entrance ───────────────
+const projectCardEls = document.querySelectorAll('.project-card');
+const pcObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }, i * 120);
+      pcObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+projectCardEls.forEach(card => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(30px)';
+  card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  pcObserver.observe(card);
 });
 
 console.log('%c Jimmy Valdés Portfolio 🚀 ', 'background: linear-gradient(135deg,#6C63FF,#00D9C0); color: white; font-size: 16px; padding: 8px 16px; border-radius: 8px;');
